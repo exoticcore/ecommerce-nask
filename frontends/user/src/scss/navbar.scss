@@ -1,0 +1,129 @@
+@import './variables.module.scss';
+
+.navbar {
+  width: 100%;
+  display: block;
+  cursor: default;
+  user-select: none;
+  padding: 0.75rem 0;
+
+  &-main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    &__menu {
+      display: none;
+    }
+
+    &__logo {
+      width: 11rem;
+      height: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    &__navigation {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      font-weight: 300;
+      font-size: 0.95rem;
+
+      &-link {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.15rem;
+        color: $grey-400;
+        transition: $transition-normal;
+
+        a {
+          color: $grey-400;
+          transition: $transition-normal;
+          display: flex;
+          align-items: center;
+          gap: 0.15rem;
+          &:hover {
+            color: $black;
+          }
+        }
+
+        &:hover {
+          color: $black;
+          transform: translate(0, -0.15rem);
+        }
+      }
+    }
+
+    &__action {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      &__action-icon {
+        position: relative;
+        cursor: pointer;
+
+        .notification {
+          border-radius: 50%;
+          background-color: $red-dark;
+          padding: 0.3rem;
+          box-shadow: 0 0 0 0.1rem $white;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+
+        .icon {
+          height: 1.3rem;
+          width: 1.3rem;
+
+          &.user {
+            height: 1.2rem;
+            width: 1.2rem;
+          }
+
+          &.cart {
+            width: 1.4rem;
+            height: 1.4rem;
+            margin-left: -10%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet-horizontal) {
+  .navbar {
+    padding: 1.5rem 0.25rem;
+    &-main {
+      &__menu {
+        display: block;
+      }
+
+      &__logo {
+        width: 8.5rem;
+      }
+
+      &__navigation {
+        display: none;
+      }
+
+      &__action {
+        gap: 0.5rem;
+        &__action-icon {
+          .icon {
+            &.user {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

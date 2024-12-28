@@ -1,0 +1,259 @@
+version: '2'
+services:
+  # reverse proxy
+  nginx:
+    image: nginx:1.25-alpine
+    deploy:
+    container_name: nask-nginx
+    restart: always
+    depends_on:
+      nask-api-auth:
+        condition: service_started
+      nask-api-catalog:
+        condition: service_started
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginxlocal.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - public
+      - private
+  # main nextjs user
+  nask-next-user:
+    container_name: nask-next-user
+    build:
+      context: frontends/user/
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - 10000:10000
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=nask.local
+      - API_DOMAIN=http://api.nask.local
+    networks:
+      - private
+      - public
+  # container mfe admin
+  nask-mfe-container:
+    container_name: nask-mfe-container
+    build:
+      context: frontends/admin/container/
+      args:
+        PRODUCTION_DOMAIN: 'admin.nask.local'
+        API_DOMAIN: 'http://api.nask.local'
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '9000:80'
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=admin.nask.local
+      - API_DOMAIN=http://api.nask.local
+    networks:
+      - private
+  # dashboard mfe admin
+  nask-mfe-dashboard:
+    container_name: nask-mfe-dashboard
+    build:
+      context: frontends/admin/dashboard/
+      args:
+        PRODUCTION_DOMAIN: 'admin.nask.local'
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '9001:80'
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=admin.nask.local
+    networks:
+      - private
+  # auth mfe admin
+  nask-mfe-auth:
+    container_name: nask-mfe-auth
+    build:
+      context: frontends/admin/auth/
+      args:
+        PRODUCTION_DOMAIN: 'admin.nask.local'
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '9002:80'
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=admin.nask.local
+    networks:
+      - private
+  # product mfe admin
+  nask-mfe-product:
+    container_name: nask-mfe-product
+    build:
+      context: frontends/admin/product/
+      args:
+        PRODUCTION_DOMAIN: 'admin.nask.local'
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '9003:80'
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=admin.nask.local
+    networks:
+      - private
+  # store mfe admin
+  nask-mfe-store:
+    container_name: nask-mfe-store
+    build:
+      context: frontends/admin/store
+      args:
+        PRODUCTION_DOMAIN: 'admin.nask.local'
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '9004:80'
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION_DOMAIN=admin.nask.local
+    networks:
+      - private
+  # auth api
+  nask-api-auth:
+    container_name: nask-api-auth
+    build:
+      context: services/auth/
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    ports:
+      - '3000:3000'
+      - '50051:50051'
+    restart: always
+    depends_on:
+      - nask-auth-db
+      - redis
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DOMAIN=http://localhost:3000
+      - COOKIE_SECRET=U8kVOLWr2PAW16uGM0nWSoZzE89rkYuA
+      - SESSION_SECRET=O1uab2LDXJmWhY2TjMh8P1InzPFWsNcZ
+      - JWT_REFRESH_SECRET=0DEnnmGdgJj7KvLI9KtxdzXdzTF0qyNx
+      - JWT_ACCESS_SECRET=7i5JWTx08oKCP12NMC9Vr1Y1ZfEsXnZD
+      - JWT_ENCRYPT_METHOD=aes-256-cbc
+      - JWT_KEY_SECRET=c207oydUo7HLubrgIuJAy0s0x8G2ghr7
+      - JWT_IV_SECRET=zksjVtKXErHQlvUhA6ygnIXBjFPowaZT
+      - LOG_FORMAT=combined
+      - LOG_DIR=../logs
+      - ORIGIN=http://localhost:3000
+      - CREDENTIALS=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DB_HOST=nask-auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=mysecretpwd
+      - DB_NAME=authentication
+      - SMTP_HOST=smtp.ethereal.email
+      - SMTP_PORT=587
+      - SMTP_USERNAME=vinnie.jerde@ethereal.email
+      - SMTP_PASSWORD=tbQU18ZKECRnSuRSnn
+      - ADMIN_EMAIL=admin@nask.live
+      - ADMIN_PASSWORD=1234
+    networks:
+      - public
+      - private
+      - auth-private
+  # auth database
+  nask-auth-db:
+    container_name: nask-auth-db
+    image: postgres:16.2-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpwd
+      - POSTGRES_DB=authentication
+    networks:
+      - auth-private
+  # catalog api
+  nask-api-catalog:
+    container_name: nask-api-catalog
+    build:
+      context: services/catalog/
+      platforms:
+        - linux/arm64
+        - linux/amd64
+    restart: always
+    ports:
+      - '3001:3001'
+    depends_on:
+      nask-catalog-db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: /bin/sh -c 'npx prisma db push'
+    environment:
+      - DATABASE_URL=mysql://root:secret@nask-catalog-db:3306/catalogdb?schema=public
+      - AMQP=amqp://localhost
+      - GRPC_AUTH=nask-api-auth:50051
+    networks:
+      - private
+      - catalog-private
+  # catalog database
+  nask-catalog-db:
+    container_name: nask-catalog-db
+    image: mariadb:10
+    restart: always
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '--user=root',
+          '--password=secret',
+          '--silent',
+        ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=catalogdb
+    networks:
+      - catalog-private
+  # redis
+  redis:
+    container_name: nask-redis
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - private
+  # rebbitmq
+
+networks:
+  public:
+  private:
+    internal: true
+  auth-private:
+    internal: true
+  catalog-private:
+    internal: true
+
+volumes:
+  auth-data:
+  catalog-data:

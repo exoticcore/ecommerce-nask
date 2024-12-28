@@ -1,0 +1,10 @@
+.evn
+.env.dev
+.gitignore
+.docker-compose.yaml
+Jenkinsfile
+jest.config.ts
+nodemon.json
+README.md
+yarn-error-log
+dist

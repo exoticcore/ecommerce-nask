@@ -1,0 +1,130 @@
+@import './variables.module.scss';
+
+.shop-main {
+  width: 100%;
+  padding: 0 1rem;
+  height: 100%;
+
+  .display {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1.5rem;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .showing-count-main {
+    padding: 0 0 1.5rem 0;
+    font-weight: 200;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: default;
+
+    &__filter {
+      display: flex;
+
+      &__sort {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        div {
+          display: flex;
+          gap: 0.2rem;
+          border-radius: $borderRadius;
+          border: 1px solid $grey-300;
+          padding: 0.5rem 0.8rem;
+          font-weight: 300;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .product-list-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    gap: 1.5rem;
+    // min-height: 30rem;
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: $transition;
+      width: 100%;
+      cursor: default;
+
+      &-image {
+        position: relative;
+        border-radius: $borderRadius;
+        overflow: hidden;
+        transition: $transition;
+        width: 100%;
+        cursor: pointer;
+
+        &:hover {
+          box-shadow: $shadow-2;
+        }
+      }
+
+      &-details {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.25rem;
+        width: 100%;
+
+        &-title {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+
+          a {
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: clip;
+            line-height: 1.2rem;
+            height: 1.2rem;
+
+            h6 {
+              font-size: 1rem;
+              cursor: pointer;
+              transition: $transition;
+              font-weight: 300;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+
+          span {
+            font-size: 0.9rem;
+            color: $grey-400;
+            font-weight: 300;
+          }
+        }
+
+        &-price {
+          display: flex;
+          flex-direction: column;
+          text-align: right;
+          gap: 0.2rem;
+
+          p {
+            font-size: 1.2rem;
+          }
+
+          span {
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            color: $grey-400;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+}

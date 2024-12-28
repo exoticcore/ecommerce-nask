@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: order_db
+    image: mysql:9
+    restart: 'always'
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: orderdb
+
+networks:
+  backend:
+    driver: bridge

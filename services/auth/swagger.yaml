@@ -1,0 +1,229 @@
+openapi: 3.0.0
+info:
+  title: AUTH API
+  description: Authentication API Docs
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1/auth
+    description: Developing environment
+  - url: https://api.nask.live/auth
+    description: Production environment
+tags:
+  - name: user
+    description: User Authentication API
+  - name: admin
+    description: Admin Authentication API
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: connect.sid
+    tokenCookie:
+      type: apiKey
+      in: cookie
+      name: token
+
+paths:
+  # [POST] /active-email
+  /active-email:
+    post:
+      tags:
+        - user
+      summary: Active Email
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'user@example.com'
+      responses:
+        200:
+          description: 'OK'
+        201:
+          description: 'No Content'
+          examples:
+            application/json:
+              {
+                isActive: false,
+                email: 'user@example.com',
+                countdown: 15,
+                count: 1,
+              }
+        400:
+          description: 'Bad Request'
+        403:
+          description: 'Forbidden'
+        405:
+          description: 'Method Not Allowed'
+        500:
+          description: 'Server Error'
+
+  # [GET] /verify/{verifyToken}
+  /verify/{verifyToken}:
+    get:
+      tags:
+        - user
+      summary: Verify Email
+      security: []
+      parameters:
+        - name: verifyToken
+          in: path
+          required: true
+          schema:
+            type: string
+            example: ee426a5d078faa6b5e037f84d24d4388f8d48c17f0c2473beaf865511258e32f55b113378acbc5c881e79ecbffe7b89fbaf3d18009ffc8077f05ead3a19c02bb
+      responses:
+        200:
+          description: 'OK'
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: connect.sid=s%3A7WEaqNB2WdTUHVkrFsXkhhTQND6nRTQP.0mkhDAM%2FBsp8vo0quHk0Y3KbbF9HISO6yg%2BtiupdCfQ; Path=/; HttpOnly
+        400:
+          description: 'Bad Request'
+        500:
+          description: 'Server Error'
+
+  # [GET] /session
+  /session:
+    get:
+      tags:
+        - user
+      summary: Get New User Session
+      security:
+        - sessionCookie: []
+        - bearerAuth: []
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Server Error'
+
+  # [GET] /token
+  /token:
+    get:
+      tags:
+        - user
+      summary: Get Access Token
+      security:
+        - sessionCookie: []
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Server Error'
+
+  # [POST] /set-password
+  /set-password:
+    post:
+      tags:
+        - user
+      summary: Set Password
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: 'secret'
+                confirmPassword:
+                  type: string
+                  example: 'secret'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Server Error'
+
+  # [POST] /login
+  /login:
+    post:
+      tags:
+        - user
+      summary: Login User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'user@example.com'
+                password:
+                  type: string
+                  example: 'secret'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Server Error'
+
+  # [POST] /login
+  /admin/login:
+    post:
+      tags:
+        - admin
+      summary: Login User
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'admin@example.com'
+                password:
+                  type: string
+                  example: 'secret'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        401:
+          description: 'Unauthorized'
+        500:
+          description: 'Server Error'
+
+schemes:
+  - https
+  - http

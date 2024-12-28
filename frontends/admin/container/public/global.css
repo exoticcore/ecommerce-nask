@@ -1,0 +1,334 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* colors */
+/* grey */
+/* rest of the colors */
+/* rest of the vars */
+/* responsive size */
+/* box shadow*/
+:export {
+  primary100: #9aeeea;
+  primary200: #79dfd9;
+  primary300: #65dad3;
+  primary400: #50d5cd;
+  primary500: #3bd0c7;
+  primary600: #20867f;
+  primary700: #165d58;
+  primary800: #114845;
+  primary900: #0c3331;
+  primary1000: #041313;
+  grey50: #f8fafc;
+  grey100: #f1f5f9;
+  grey200: #e2e8f0;
+  grey300: #cbd5e1;
+  grey400: #94a3b8;
+  grey500: #64748b;
+  grey600: #475569;
+  grey700: #334155;
+  grey800: #1e293b;
+  grey900: #0f172a;
+  black: #353535;
+  white: #fff;
+  redLight: #f8d7da;
+  redDark: #842029;
+  greenLight: #d1e7dd;
+  greenDark: #0f5132;
+  smallText: 0.875rem;
+  extraSmallText: 0.7em;
+  backgroundColor: #f8fafc;
+  textColor: #353535;
+  borderRadius: 0.35rem;
+  letterSpacing: 1px;
+  transition: 0.15s ease-in-out all;
+  transitionNormal: 0.3s ease-in-out all;
+  maxWidth: 1120px;
+  fixedWidth: 600px;
+  fluidWidth: 90vw;
+  desktop: 1280px;
+  tabletHorizontal: 1024px;
+  tabletVertical: 768px;
+  mobileLarge: 600px;
+  mobile: 500px;
+  mobileSmall: 400px;
+  shadow1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  shadow2: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  shadow3: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  shadow4: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body {
+  background: #f8fafc;
+  font-weight: 400;
+  line-height: 1;
+  color: #353535;
+  margin: 0;
+  padding: 0;
+  font-family: Kanit, sans-serif;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+button {
+  font-family: Kanit, sans-serif;
+}
+
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 3.052rem;
+}
+
+h2 {
+  font-size: 2.441rem;
+}
+
+h3 {
+  font-size: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+a {
+  color: #20867f;
+}
+
+input {
+  caret-color: #20867f;
+}
+input::placeholder, input[type=email], input[type=password], input[type=submit], input[type=button] {
+  letter-spacing: 1px;
+}
+input[type=email], input[type=password] {
+  width: 100%;
+  box-shadow: 0 0 0 1px #e2e8f0;
+  border-radius: 0.35rem;
+  padding: 0.75rem 0.75rem;
+  color: #475569;
+}
+input[type=submit] {
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+}
+input:focus {
+  box-shadow: 0 0 0 2px #3bd0c7;
+  outline: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.form-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.form-input.text-area {
+  align-items: flex-start;
+}
+.form-input.text-area textarea {
+  width: 100%;
+  height: 10rem;
+  outline: none;
+  background: transparent;
+  z-index: 1;
+  box-shadow: 0 0 0 1px #e2e8f0;
+  border-radius: 0.35rem;
+  padding: 0.5rem;
+  resize: none;
+}
+.form-input.text-area textarea:focus, .form-input.text-area textarea:valid {
+  box-shadow: 0 0 0 1px #3bd0c7;
+}
+.form-input.text-area textarea:focus + label, .form-input.text-area textarea:valid + label {
+  margin: 0;
+  color: #3bd0c7;
+  transform: translate(0, -0.75rem) scale(0.88);
+  z-index: 2;
+}
+.form-input.text-area label {
+  margin: 0.5rem 0;
+}
+.form-input input {
+  box-shadow: 0 0 0 1px #e2e8f0;
+  border-radius: 0.35rem;
+  padding: 0.5rem 0.5rem;
+  width: 100%;
+  z-index: 1;
+  background: transparent;
+}
+.form-input input:focus, .form-input input:valid {
+  box-shadow: 0 0 0 1px #3bd0c7;
+}
+.form-input input:focus + label, .form-input input:valid + label {
+  color: #3bd0c7;
+  transform: translate(0, -1.4rem) scale(0.88);
+  z-index: 2;
+}
+.form-input label {
+  background: #fff;
+  color: #64748b;
+  text-transform: capitalize;
+  padding: 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  left: 0;
+  position: absolute;
+  display: inline-block;
+  transition: 0.15s ease-in-out all;
+}
+
+.form-dropdown {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+.form-dropdown span {
+  text-transform: capitalize;
+  width: 100%;
+  padding: 0.9rem 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  box-shadow: 0 0 0 1px #e2e8f0;
+  border-radius: 0.35rem;
+  color: #64748b;
+}
+.form-dropdown .dropdown__icon {
+  position: absolute;
+  right: 0;
+  margin: 0.8rem;
+  color: #64748b;
+  transition: 0.15s ease-in-out all;
+  z-index: 3;
+}
+.form-dropdown.--disable {
+  cursor: default;
+}
+.form-dropdown.--disable span {
+  color: #cbd5e1;
+}
+.form-dropdown.--disable .dropdown__icon {
+  color: #cbd5e1;
+}
+
+.input-icon {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon .icon {
+  position: absolute;
+  font-size: 1.15rem;
+  margin-left: 0.75rem;
+  color: #94a3b8;
+}
+.input-icon .icon.--active {
+  color: #3bd0c7;
+}
+.input-icon input {
+  padding-left: 2.35rem;
+}
+
+::selection {
+  color: #20867f;
+  background: #9aeeea;
+}
+
+/* ----- Main Content ----- */
+.main {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0.75rem;
+  overflow-x: visible;
+  max-width: 32rem;
+}
+
+@media screen and (min-width: 1280px) {
+  .main {
+    max-width: 72rem;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .main {
+    max-width: 62rem;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .main {
+    max-width: 42rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main {
+    max-width: 36rem;
+  }
+}
+.button-long {
+  background: #3bd0c7;
+  width: 100%;
+  height: 3rem;
+  border-radius: 0.35rem;
+  color: #fff;
+  cursor: pointer;
+}
+.button-long:hover {
+  background: #20867f;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.select-none {
+  user-select: none;
+}
+
+@keyframes blurInAnimate {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.blurInAnimate {
+  animation: blurInAnimate 3s alternate;
+}
+
+/*# sourceMappingURL=global.css.map */

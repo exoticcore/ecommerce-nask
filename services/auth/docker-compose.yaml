@@ -1,0 +1,40 @@
+version: '3'
+services:
+  dev-db:
+    image: postgres:16.2-alpine
+    ports:
+      - '5437:5432'
+    # volumes:
+    #   - pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpwd
+      - POSTGRES_DB=authentication
+
+  dev-pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - '8090:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    # volumes:
+    #   - pgadmin-data:/var/lib/pgadmin
+
+  dev-redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6383:6379'
+
+  # dev-api:
+  #   image: doublecre/auth
+  #   ports:
+  #     - '3010:3000'
+  #   environment:
+  #     - NODE_ENV=production
+  #     - PORT=3000
+
+volumes:
+  pg-data:
+  pgadmin-data:

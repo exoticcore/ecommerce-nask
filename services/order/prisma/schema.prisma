@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+} 
+
+model ShippingMethod {
+  id                          Int               @id @default(autoincrement())
+  slug                        String            @unique
+  cost                        Float             
+  image_url                   String?             
+  createdAt                   DateTime          @default(now())
+
+  translate                   ShippingMethodTranslate[]
+}
+
+model ShippingMethodTranslate {
+  id                          Int               @id @default(autoincrement())
+  locale                      String
+  title                       String
+  description                 String?
+
+  shipping_method_id          Int
+  shippingMethod              ShippingMethod    @relation(fields: [shipping_method_id], references: [id])
+}
+
+model Order {
+  id                          String            @id
+  shipping_addr               String            @db.Text
+  billing_addr                String?           @db.Text
+
+  createdBy                   String
+
+  createdAt                   DateTime          @default(now())
+  updatedAt                   DateTime          @updatedAt
+
+  order_list                  OrderProducts[]
+  order_status                OrderStatus[]
+}
+
+model OrderStatus {
+  id                          Int               @id @default(autoincrement())
+  
+  createdAt                   DateTime          @default(now())
+  createdBy                   String?
+
+  order_id                    String
+  order                       Order             @relation(fields: [order_id], references: [id])
+}
+
+model OrderProducts {
+  id                          Int               @id @default(autoincrement())
+  qty                         Int               
+  
+  order_id                    String
+  order                       Order             @relation(fields: [order_id], references: [id])
+
+  product_id                  Int
+  product                     Product           @relation(fields: [product_id], references: [id])
+}
+
+model Product {
+  id                          Int               @id @default(autoincrement())
+  sku                         String
+  slug                        String
+  price                       Float
+  image_url                   String?
+  is_activated                Boolean           @default(true)
+  is_ordered                  Boolean           @default(false)
+
+
+  createdAt                   DateTime          @default(now())
+
+  translate                   ProductTranslate[]
+
+  order_list                  OrderProducts[]
+  cart_list                   CartProduct[]
+}
+
+model ProductTranslate {
+  id                          Int               @id @default(autoincrement())
+  locale                      String
+  title                       String
+  attr_value                  String?
+
+  product_id                  Int
+  product                     Product           @relation(fields: [product_id], references: [id])
+}
+
+model Cart {
+  id                          Int               @id @default(autoincrement())
+
+  user_email                  String            @unique
+
+  cart_list                   CartProduct[]
+}
+
+model CartProduct {
+  id                          Int               @id @default(autoincrement())
+
+  qty                         Int
+  
+  product_id                  Int
+  product                     Product           @relation(fields: [product_id], references: [id])
+
+  cart_id                     Int
+  cart                        Cart              @relation(fields: [cart_id], references: [id])
+
+  updatedAt                   DateTime          @updatedAt
+}

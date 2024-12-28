@@ -1,0 +1,68 @@
+{
+  "product": {
+    "slug": "marbo-bar",
+    "price": 200.0,
+    "image_url": ""
+  },
+  "translate": [
+    {
+      "locale": "th",
+      "title": "Marbo Bar 9000 puffs",
+      "information": "",
+      "description": ""
+    },
+    {
+      "locale": "en",
+      "title": "Marbo Bar 9000 puffs",
+      "information": "",
+      "description": ""
+    }
+  ],
+  "ref": {
+    "subcat_attr_slug": "disposable-pod",
+    "brand_slug": "marbo"
+  },
+  "sku": [
+    {
+      "sku": "TCR-MBR-001",
+      "stock": 19,
+      "is_primary": true,
+      "image_url": ""
+    },
+    {
+      "sku": "TCR-MBR-002",
+      "stock": 19,
+      "is_primary": true,
+      "image_url": ""
+    }
+  ],
+  "selection": {
+    "product_selection": [
+      {
+        "attr": {
+          "translate": [
+            {
+              "locale": "th",
+              "name": "Flavor"
+            },
+            {
+              "locale": "en",
+              "name": "Flavor"
+            }
+          ]
+        },
+        "value": ["Grape", "Sour", "Gummy", "Lychee"]
+      }
+    ],
+    "product_option": [
+      {
+        "p_index": 0,
+        "options": [[0, 0]]
+      },
+      {
+        "p_index": 1,
+        "options": [[0, 1]]
+      }
+    ]
+  }
+}

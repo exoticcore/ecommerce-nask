@@ -1,0 +1,114 @@
+{
+  "locale": "en",
+  "Topbar": {
+    "tracking": "Tracking Your Order"
+  },
+  "Navbar": {
+    "home": "Home",
+    "shop": "Shop",
+    "contract": "Contract",
+    "blog": "Blog"
+  },
+  "Login": {
+    "logsign": "Login | Register",
+    "email": "Email Address",
+    "continune": "Continune",
+    "or": "or",
+    "facebook": "Continune with Facebook",
+    "google": "Continune with Google",
+    "term": "Term of Use",
+    "privacy": "Privacy Policy",
+    "and": "and"
+  },
+  "Main": {
+    "feature": "Feature Products",
+    "new": "New Arrivals",
+    "currated": "Currated Picks",
+    "slogan": {
+      "main": {
+        "title1": "We provide best",
+        "title2": "customer experiences",
+        "des": "We ensure our customers have the best shopping experience"
+      },
+      "original": {
+        "title": "Original Products",
+        "des": "Money back guarantee if the product you receive is not genuine."
+      },
+      "satisfaction": {
+        "title": "Satisfaction Guaranteed",
+        "des": "Your satisfaction guaranteed: Our top priority is your happiness."
+      },
+      "new": {
+        "title": "New Arrival Everyday",
+        "des": "We updates our collections almost everyday"
+      },
+      "shipping": {
+        "title": "Fast Shipping",
+        "des": "Get your orders quickly with our reliable and efficient shipping services"
+      }
+    },
+    "brand": "Brands"
+  },
+  "shop": {
+    "sidebar": {
+      "category": "Categories",
+      "brand": "Brands"
+    },
+    "showing": {
+      "showing": "Showing",
+      "results": "results from total",
+      "items": "items",
+      "sort": {
+        "sort": "Sort by",
+        "popular": "Popularity"
+      }
+    }
+  },
+  "ProductPage": {
+    "add_cart": "Add to cart",
+    "details": "Details",
+    "reviews": "Rating & Reviews",
+    "discuss": "Discussion",
+    "related": "Related Products"
+  },
+  "CartPage": {
+    "cart": "Cart",
+    "product": "product",
+    "qty": "quantity",
+    "price": "price",
+    "remove_select": "remove",
+    "remove": "remove",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "grandtotal": "Grand total",
+    "checkout": "Checkout now"
+  },
+   "CheckoutPage": {
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "payment": "Payment",
+    "country_select": "Select shipping country",
+    "thailand": "Thailand",
+    "address": "Shipping address",
+    "name": "Full Name",
+    "email": "Email Address",
+    "email_confirm": "Confirmation Email",
+    "phone": "Phone Number",
+    "address1": "Stree Name And House Number",
+    "city": "City",
+    "region": "Region",
+    "postal": "Postal Code",
+    "shipping_method": "Shipping method",
+    "business_day": "bussiness days",
+    "your_order": "Your Order",
+    "view_all": "View all",
+    "discount_code": "Discount Code",
+    "apply_discount": "Add discount code",
+    "apply": "Apply",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping_cost": "Shipment cost",
+    "grandtotal": "Grand total",
+    "continune_payment": "Continune to payment"
+  }
+}

@@ -1,0 +1,61 @@
+# baseURL
+@baseURL = http://localhost:3000/api/v1/auth
+
+# verifyToken
+@verifyToken = ee426a5d078faa6b5e037f84d24d4388f8d48c17f0c2473beaf865511258e32f55b113378acbc5c881e79ecbffe7b89fbaf3d18009ffc8077f05ead3a19c02bb
+
+# cookieSession
+@cookieSession = ['connect.sid=s%3A7WEaqNB2WdTUHVkrFsXkhhTQND6nRTQP.0mkhDAM%2FBsp8vo0quHk0Y3KbbF9HISO6yg%2BtiupdCfQ; Path=/; HttpOnly']
+
+# accessToken
+@accessToken = Bearer ZWE5MmE4MzJjNmY4MGY0MDA0MDQ3MjljNmU4ZWM3M2ExNjMxNTg2ZjM5OTk4YmU5NGMyMmI4ZDlhNTlhNWY4YWY4ODI3OGQzMDMwODQyZWEzODczYzkxMzdmZTE2YTM0NjU2YTYwZWY1YTMwNzUzMzgwNDk2MDQwZTIzZTQzZGY1MGM2NTQwOWYwNDliNjc5MzRiN2NkYTM5ODhmYWUyYTUyNGUyMTFiNzM5MWJkYTg3ZmViYmExNzY0YWM5NTdhZmJmMGUzNDcyMTA4MjU2Y2E5M2NiNzJkYWM1YmNlMmM5NzM4YzE0ODE4ZDE0MDY5ZTYzYmNmMTk0YjI5MjE2NWMxMjUyZTAzNGE0MGM5NTc1NjFmOTg5NjlmYzIwOWY5YjljNjQxNGViMGEwYzdkODVkNTI2ZjM3YjczNzlkNzFkMDBlNTMzMzk3YzA5M2Q4ZDA3YzQ5ZmMyMDBmOThmZmE4ZGMwMzc3Njk5NmZkMGJkNWZhNWFiYTg3NTIwZjI0ZGUzN2VkMzFlYzFhZWI4ZTM4NmRjZDZlNWJkYjllODhlN2RlOWFhNWM1YWE0ZWFlZmFlNjVmOGMyYjgxMWMzZA==
+
+
+
+###
+# Active Email
+POST {{baseURL}}/active-email
+Content-Type: application/json
+
+{
+    "email": "test@mail.com"
+}
+
+###
+# Verify Email
+GET {{baseURL}}/verify/{{verifyToken}}
+
+
+###
+# Access Token
+GET {{baseURL}}/token
+Cookie: ['connect.sid=s%3A7WEaqNB2WdTUHVkrFsXkhhTQND6nRTQP.0mkhDAM%2FBsp8vo0quHk0Y3KbbF9HISO6yg%2BtiupdCfQ; Path=/; HttpOnly']
+
+###
+# Refresh Token
+GET {{baseURL}}/session
+Cookie: ['connect.sid=s%3A7WEaqNB2WdTUHVkrFsXkhhTQND6nRTQP.0mkhDAM%2FBsp8vo0quHk0Y3KbbF9HISO6yg%2BtiupdCfQ; Path=/; HttpOnly']
+Authorization: {{accessToken}}
+
+###
+# Set Password
+POST {{baseURL}}/set-password
+
+Authorization: {{accessToken}}
+
+Content-Type: application/json
+
+{
+    "password": "secret",
+    "confirmPassword": "secret",
+}
+
+###
+# Auth Login
+POST {{baseURL}}/login
+Content-Type: application/json
+
+{
+    "email": "example@email.com",
+    "password": "password123"
+}

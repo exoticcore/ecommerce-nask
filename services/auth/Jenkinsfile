@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        LINE_API_KEY = credentials('line-api-key')
+    }
+
+    stages {
+        stage('BUILD') {
+            steps {
+                sh 'yarn install'
+                sh 'yarn build'
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                sh 'yarn test:unit' 
+            }
+            post {
+                success {
+
+                }
+                failure {
+
+                }
+            }
+        }
+
+        stage('Integration Test') {
+            steps {
+                sh 'yarn test:int'
+            }
+        }
+
+        stage('E2E Test') {
+            steps {
+                sh 'yarn test:e2e'
+            }
+        }
+
+        stage('Build App Image') {
+            environment {
+                AWS_REGION = 'ap-southeast-1'
+                ECR_REPO = 'nask-auth-service'
+                AWS_ACCOUNT_ID = credentials('aws-account-id')
+                URL_REGISTRY = "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+            }
+            steps {
+
+            }
+        }
+    }
+}
